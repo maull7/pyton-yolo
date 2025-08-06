@@ -9,7 +9,7 @@ IMAGE_FOLDER = "dataset/images/train"
 LABEL_FOLDER = "dataset/labels/train"
 LABEL_CLASSES = ["lengan_kanan", "lengan_kiri", "kerah", "kantong", "badan"]
 IMG_SIZE = 640  # simpan ukuran gambar tetap
-NUM_COPIES = 25  # jumlah foto disalin
+NUM_COPIES = 5  # jumlah foto disalin
 
 # Buat folder jika belum ada
 os.makedirs(IMAGE_FOLDER, exist_ok=True)
