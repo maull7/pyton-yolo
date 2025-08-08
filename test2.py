@@ -7,38 +7,29 @@ import json
 from datetime import datetime
 
 class PendeteksiBagianPakaian:
-    def __init__(self, jalur_dasar="runs/detect", maks_pelatihan=15, skala_cm_per_px=0.05):
+    def __init__(self, jalur_dasar="runs/detect", maks_pelatihan=19, skala_cm_per_px=0.05):
         self.model_model = self.muat_semua_model(jalur_dasar, maks_pelatihan)
         self.skala_cm_per_px = skala_cm_per_px
         self.riwayat_deteksi = defaultdict(list)
 
-        # Definisi bagian-bagian pakaian yang akan dideteksi
+       # Definisi bagian-bagian pakaian yang akan dideteksi (sesuai data.yaml)
         self.bagian_pakaian = {
             'kerah': ['collar', 'kerah', 'neck'],
-            'lengan_kiri': ['sleeve_left', 'lengan_kiri', 'left_sleeve'],
             'lengan_kanan': ['sleeve_right', 'lengan_kanan', 'right_sleeve'],
+            'lengan_kiri': ['sleeve_left', 'lengan_kiri', 'left_sleeve'],
             'kantong': ['pocket', 'kantong', 'chest_pocket'],
-            'kancing': ['button', 'kancing', 'buttons'],
-            'manset': ['cuff', 'manset', 'sleeve_end'],
-            'kelim': ['hem', 'kelim', 'bottom_edge'],
-            'bahu': ['shoulder', 'bahu', 'shoulder_seam'],
-            'dada': ['chest', 'dada', 'front_panel'],
-            'punggung': ['back', 'punggung', 'back_panel']
+            'badan': ['badan', 'body', 'torso', 'bagian_depan']  # tambahkan sinonim umum
         }
 
-        # Warna untuk setiap bagian pakaian
+        # Warna untuk setiap bagian pakaian (disesuaikan)
         self.warna_bagian = {
-            'kerah': (255, 0, 0),        # Merah
-            'lengan_kiri': (0, 255, 0),  # Hijau
+            'kerah': (255, 0, 0),         # Merah
             'lengan_kanan': (0, 255, 255), # Cyan
-            'kantong': (255, 255, 0),    # Kuning
-            'kancing': (255, 0, 255),    # Magenta
-            'manset': (128, 255, 0),     # Lime
-            'kelim': (255, 128, 0),      # Orange
-            'bahu': (128, 0, 255),       # Violet
-            'dada': (0, 128, 255),       # Biru
-            'punggung': (255, 128, 128)  # Pink
+            'lengan_kiri': (0, 255, 0),   # Hijau
+            'kantong': (255, 255, 0),     # Kuning
+            'badan': (0, 128, 255)        # Biru (dari warna 'dada' sebelumnya)
         }
+
 
     def muat_semua_model(self, jalur_dasar, maks_pelatihan):
         """Muat semua model YOLO yang tersedia"""
@@ -279,8 +270,8 @@ def main():
     detektor = PendeteksiBagianPakaian(skala_cm_per_px=0.05)
 
     # Setup IP Camera
-    url_ip_camera = 'http://10.94.239.254:8080/video/mjpeg'
-    cap = cv2.VideoCapture(0)
+    url_ip_camera = 'http://192.168.25.192:8080/video/mjpeg'
+    cap = cv2.VideoCapture(url_ip_camera)
 
     if not cap.isOpened():
         print("[ERROR] Gagal mengakses IP Camera.")

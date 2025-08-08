@@ -13,7 +13,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class SistemDeteksiBajuCanggih:
-    def __init__(self, base_path="runs/detect", max_train=15, skala_cm_per_px=0.05):
+    def __init__(self, base_path="runs/detect", max_train=19, skala_cm_per_px=0.05):
         self.models = self.muat_semua_model(base_path, max_train)
         self.skala_cm_per_px = skala_cm_per_px
         self.riwayat_deteksi = defaultdict(list)
@@ -703,8 +703,8 @@ def main():
         # cap = cv2.VideoCapture(0)
 
         # Untuk IP Camera (uncomment jika menggunakan IP camera):
-        ip_camera_url = 'http://10.94.239.254:8080//video/mjpeg'
-        cap = cv2.VideoCapture(0)
+        ip_camera_url = 'http://192.168.25.192:8080/video/mjpeg'
+        cap = cv2.VideoCapture(ip_camera_url)
 
         # Set resolusi untuk kualitas yang lebih baik
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)

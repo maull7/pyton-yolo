@@ -2,10 +2,10 @@ from ultralytics import YOLO
 import cv2
 
 # Load model
-model = YOLO("runs/detect/train11/weights/best.pt")
+model = YOLO("runs/detect/train19/weights/best.pt")
 
 # Baca gambar
-img = cv2.imread("lengan.jpg")
+img = cv2.imread("kemeja.jpeg")
 
 # Jalankan deteksi
 results = model(img, conf=0.1)
